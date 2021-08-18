@@ -1,6 +1,8 @@
 let gotham,
 	ds_digital,
 	digital7,
+	bg,
+	div,
 	data,
 	post,
 	displayPost,
@@ -11,7 +13,7 @@ let gotham,
 let scoreboard = {
 	"correct": 0,
 	"fail": 0,
-	"pass": 0
+	"pass": [0,0,0,0,0,0,0,0,0]
 }
 
 let keyCodes = [70, 74, 32];
@@ -21,49 +23,60 @@ function preload() {
 	digital7 = loadFont('assets/fonts/digital_7/digital-7 (mono italic).ttf');
 	ds_digital = loadFont('assets/fonts/ds_digital/DS-DIGIT.TTF');
 	data = loadJSON('/js/data.json');
+	bg = loadImage('assets/img/bliss-pic.jpg');
 }
 
 function setup() {
-	createCanvas(1024, 768);
-	console.log(data.content);
+	createCanvas(displayWidth, displayHeight);
+	noLoop();
 }
 
 function draw() {
 	renderPlayfield();
-
-	console.log(post);
 	if (post == undefined) {
-		console.log(post == undefined);
 		renderPost();
+	} else {
 		loop();
 	}
 }
 
 function renderPlayfield() {
-	background('#959595');
+	background(bg);
+
+	div = createDiv().size(640, 480);
+	div.style('background', '#959595');
+	div.style('border', '3px outset black');
+	div.style('border-radius', '5px');
+	div.center();
 	
-	displayPost = rect(192, 80, 640, 240);
+	// displayPost = rect(192, 80, 640, 240);
 
 	button1 = createButton('Approve');
+	button1.parent(div);
 	button1.size(180, 80);
-	button1.position(192, 480);
+	button1.position(15, 367);
 	button1.style('font-family', 'Gotham');
 	button1.style('font-weight', 'lighter');
 	button1.style('text-align', 'center');
+	button1.mousePressed(approve);
 
 	button2 = createButton('AI Decides');
+	button2.parent(div);
 	button2.size(180, 80);
-	button2.position(422, 480);
+	button2.position(228, 367);
 	button2.style('font-family', 'Gotham');
 	button2.style('font-weight', 'lighter');
 	button2.style('text-align', 'center');
+	button2.mousePressed(pass);
 
 	button3 = createButton('Harmful');
+	button3.parent(div);
 	button3.size(180, 80);
-	button3.position(652, 480);	
+	button3.position(441, 367);	
 	button3.style('font-family', 'Gotham');
 	button3.style('font-weight', 'lighter');
 	button3.style('text-align', 'center');
+	button3.mousePressed(denyMenu);
 }
 
 function getRandomPost() {
@@ -75,9 +88,14 @@ function getRandomPost() {
 function renderPost() {
 	noLoop();
 	post = getRandomPost();
-	textSize(24);
-	text(post.text, 216, 104, 616, 216);
-	textFont(gotham);
+	let postDiv = createDiv(post.text).size(606, 240);
+	postDiv.parent(div);
+	postDiv.position(15, 15);
+	postDiv.style('font-family', 'Gotham');
+	postDiv.style('font-size', '18px');
+	postDiv.style('border', '1px solid black');
+	postDiv.style('padding', '2em');
+	postDiv.style('box-sizing', 'border-box');
 }
 
 function approve() {
@@ -86,14 +104,31 @@ function approve() {
 	} else {
 		scoreboard.fail++;
 	}	
+	renderPost();
 }
 
-function deny() {
-	if (post.human_rating > 0) {
-		scoreboard.correct++;
-	} else {
-		scoreboard.fail++;
-	}
+function denyMenu() {
+	let menu = createDiv().size(144,320).position(223,300);
+
+	let ul = createElement('ul').parent(menu);
+	createElement('li', 'Sexism / Misogyny').value(1).parent(ul).mousePressed(deny);
+	createElement('li', 'Racism / Xenophobia').value(2).parent(ul).mousePressed(deny);
+	createElement('li', 'Homophobia / Transphobia').value(3).parent(ul).mousePressed(deny);
+	createElement('li', 'Ethnic or Religious Slur').value(4).parent(ul).mousePressed(deny);
+	createElement('li', 'Physical Threats').value(5).parent(ul).mousePressed(deny);
+	createElement('li', 'Sexual Threats').value(6).parent(ul).mousePressed(deny);
+	createElement('li', 'Other').value(7).parent(ul).mousePressed(deny);
+	createElement('li', 'Harassment (negative)').value(8).parent(ul).mousePressed(deny);	
+}
+
+function deny(event) {
+	console.log(event);
+	// if (post.human_rating > 0) {
+	// 	scoreboard.correct++;
+	// } else {
+	// 	scoreboard.fail++;
+	// }
+	// renderPost();
 }
 
 function pass() {
