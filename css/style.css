@@ -1,0 +1,72 @@
+body {
+	overflow: hidden;
+	background:  url('/assets/img/bliss-pic.jpg');
+	background-size: cover;
+}
+
+#sketch {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+#sketch canvas {
+	position:  fixed;
+	z-index: 100;
+	pointer-events:  none;
+}
+
+.mainWindow {
+	position: relative;
+	width: 820px;
+	height: 480px;
+	background: #959595;
+	border: 3px outset black;
+	border-radius: 5px;
+	top:  50%;
+	left:  50%;
+	transform:  translate(-50%, -50%);
+}
+
+.mainWindow .menu {
+	position: relative;
+	width: 265px;
+	height: 160px;
+	background: rgb(240, 240, 240);
+	border: 1px solid black;
+	border-radius: 2px;
+	font-family: 'Gotham';
+	z-index: 10;
+	top: 123px;
+	left: 354px;
+}
+
+.mainWindow .menu ul {
+	list-style-type:  none;	
+	padding-left: 20px;
+}
+
+.mainWindow .menu ul li:hover {
+	cursor: pointer;
+	color: blue;
+	text-decoration: underline;
+}
+
+.mainWindow .timerDisplay {
+	position: relative;
+	width: 180px;
+	height: 80px;
+	top:  15px;
+	left:  630px;
+	font-family:  'Digital7';
+	font-size: 32px;
+	font-style: italic;
+	text-align: center;
+	background: rgb(240, 240, 240);
+	border:  1px solid black;
+	border-radius:  2px;
+}
