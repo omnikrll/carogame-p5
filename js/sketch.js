@@ -1,8 +1,4 @@
-let gotham = false,
-	ds_digital = false,
-	digital7 = false,
-	bg = false,
-	mainWindow = false,
+let mainWindow = false,
 	data = false,
 	post = false,
 	postDiv = false,
@@ -20,9 +16,9 @@ let scoreboard = {
 	"pass": [0,0,0,0,0,0,0,0,0]
 }
 
-let timer = 10;
+let timer = 30;
 
-let run = false;
+let run = true;
 
 let reasons = [
 	'Sexism / Misogyny',
@@ -35,17 +31,12 @@ let reasons = [
 ];
 
 function preload() {
-	gotham = loadFont('assets/fonts/gotham/Gotham/Gotham-Book.otf');
-	digital7 = loadFont('assets/fonts/digital_7/digital-7 (mono italic).ttf');
-	ds_digital = loadFont('assets/fonts/ds_digital/DS-DIGIT.TTF');
 	data = loadJSON('/js/data.json');
-	bg = loadImage('assets/img/bliss-pic.jpg');
 }
 
 function setup() {
 	let canvas = createCanvas(displayWidth, displayHeight);
 	canvas.parent('sketch');
-	// noLoop();
 }
 
 function draw() {
@@ -53,7 +44,6 @@ function draw() {
 		renderPlayfield();
 		renderPost();
 	}
-
 
 	if (run && frameCount % 60 == 0 && timer > 0) {
 		timer--;
@@ -70,21 +60,17 @@ function draw() {
 		timerDisplay.style('color', 'red');
 	}
 
-
-
 	if (timer == 0) {
 		roundOver();
 	}
 }
 
 function renderPlayfield() {
-	// background(bg);
 
 	if (!mainWindow) {
 		mainWindow = createDiv().addClass('mainWindow');
 		mainWindow.parent('sketch');
 	}
-	// div.center();
 
 	if (!timerDisplay) {
 		timerDisplay = createDiv().addClass('timerDisplay');
@@ -95,33 +81,39 @@ function renderPlayfield() {
 	if (!button1) {
 		button1 = createButton('Approve');
 		button1.parent(mainWindow);
+		// move all this to css... {
 		button1.size(180, 80);
 		button1.position(15, 367);
 		button1.style('font-family', 'Gotham');
 		button1.style('font-weight', 'lighter');
 		button1.style('text-align', 'center');
+		///.. }
 		button1.mousePressed(approve);
 	}
 
 	if (!button2) {
 		button2 = createButton('AI Decides');
 		button2.parent(mainWindow);
+		// move all this to css... {
 		button2.size(180, 80);
 		button2.position(228, 367);
 		button2.style('font-family', 'Gotham');
 		button2.style('font-weight', 'lighter');
 		button2.style('text-align', 'center');
+		//... }
 		button2.mousePressed(pass);
 	}
 
 	if (!button3) {
 		button3 = createButton('Harmful');
 		button3.parent(mainWindow);
+		// move all this to css... {
 		button3.size(180, 80);
 		button3.position(441, 367);	
 		button3.style('font-family', 'Gotham');
 		button3.style('font-weight', 'lighter');
 		button3.style('text-align', 'center');
+		//... }
 		button3.mousePressed(denyMenu);
 	}
 }
@@ -138,12 +130,7 @@ function renderPost() {
 	if (typeof postDiv == 'object') postDiv.remove();
 	postDiv = createDiv(post.text).size(606, 240);
 	postDiv.parent(mainWindow);
-	postDiv.position(15, 15);
-	postDiv.style('font-family', 'Gotham');
-	postDiv.style('font-size', '18px');
-	postDiv.style('border', '1px solid black');
-	postDiv.style('padding', '2em');
-	postDiv.style('box-sizing', 'border-box');
+	postDiv.class('postDiv');
 	loop();
 }
 
@@ -184,6 +171,7 @@ function deny(value) {
 
 function pass() {
 	scoreboard.pass++;
+	renderPost();
 }
 
 function roundOver() {
