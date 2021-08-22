@@ -7,16 +7,19 @@ let mainWindow = false,
 	button2 = false,
 	button3 = false,
 	menu = false,
+	timer = null,
 	timerDisplay = false,
-	timerFontSize = 32;
+	timerFontSize = 32,
+	round = [];
 
 let scoreboard = {
+	"round": 1,
 	"correct": 0,
 	"fail": 0,
-	"pass": [0,0,0,0,0,0,0,0,0]
+	"pass": 0,
+	"timer": 30,
+	"results": []
 }
-
-let timer = 30;
 
 let run = true;
 
@@ -35,13 +38,17 @@ function preload() {
 }
 
 function setup() {
-	let canvas = createCanvas(displayWidth, displayHeight);
-	canvas.parent('sketch');
+	renderPlayfield();
+
+	if (getItem('scoreboard') != null) {
+		scoreboard = JSON.parse(getItem('scoreboard'));
+	}
+
+	timer = scoreboard.timer;
 }
 
 function draw() {
 	if (!post) {
-		renderPlayfield();
 		renderPost();
 	}
 
@@ -66,7 +73,6 @@ function draw() {
 }
 
 function renderPlayfield() {
-
 	if (!mainWindow) {
 		mainWindow = createDiv().addClass('mainWindow');
 		mainWindow.parent('sketch');
@@ -81,46 +87,30 @@ function renderPlayfield() {
 	if (!button1) {
 		button1 = createButton('Approve');
 		button1.parent(mainWindow);
-		// move all this to css... {
-		button1.size(180, 80);
+		button1.addClass('rateButton').addClass('approve');
 		button1.position(15, 367);
-		button1.style('font-family', 'Gotham');
-		button1.style('font-weight', 'lighter');
-		button1.style('text-align', 'center');
-		///.. }
 		button1.mousePressed(approve);
 	}
 
 	if (!button2) {
 		button2 = createButton('AI Decides');
 		button2.parent(mainWindow);
-		// move all this to css... {
-		button2.size(180, 80);
+		button2.addClass('rateButton').addClass('pass');
 		button2.position(228, 367);
-		button2.style('font-family', 'Gotham');
-		button2.style('font-weight', 'lighter');
-		button2.style('text-align', 'center');
-		//... }
 		button2.mousePressed(pass);
 	}
 
 	if (!button3) {
 		button3 = createButton('Harmful');
 		button3.parent(mainWindow);
-		// move all this to css... {
-		button3.size(180, 80);
+		button3.addClass('rateButton').addClass('deny');
 		button3.position(441, 367);	
-		button3.style('font-family', 'Gotham');
-		button3.style('font-weight', 'lighter');
-		button3.style('text-align', 'center');
-		//... }
 		button3.mousePressed(denyMenu);
 	}
 }
 
 function getRandomPost() {
 	let i = Math.floor(Math.random() * data.content.length);
-
 	return data.content.splice(i, 1)[0];
 }
 
@@ -134,14 +124,13 @@ function renderPost() {
 	loop();
 }
 
-
 function approve() {
 	if (post.human_rating == 0) {
 		scoreboard.correct++
 	} else {
 		scoreboard.fail++;
 	}	
-	renderPost();
+	handleResult(0);
 }
 
 function denyMenu() {
@@ -166,14 +155,22 @@ function deny(value) {
 	} else {
 		scoreboard.fail++;
 	}
-	renderPost();
+	handleResult(value);
 }
 
 function pass() {
 	scoreboard.pass++;
+	handleResult(-1);
+}
+
+function handleResult(value) {
+	post.player_rating = value;
+	scoreboard.results.push(post);
 	renderPost();
 }
 
 function roundOver() {
 	alert('round over');
+	storeItem('scoreboard', JSON.stringify(scoreboard));
+	window.location.assign(window.location.origin + '/result.html');
 }

@@ -2,6 +2,11 @@ body {
 	overflow: hidden;
 	background:  url('/assets/img/bliss-pic.jpg');
 	background-size: cover;
+	font-size: 16px;
+}
+
+br {
+	height: 1em;
 }
 
 #sketch {
@@ -44,6 +49,14 @@ body {
 	box-sizing: border-box;
 	background:  rgb(240, 240, 240);
 
+}
+
+.mainWindow .rateButton {
+	width: 180px;
+	height: 80px;
+	font-family: 'Gotham';
+	font-weight: lighter;
+	text-align: center;
 }
 
 .mainWindow .menu {

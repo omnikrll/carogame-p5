@@ -1,0 +1,60 @@
+body {
+	overflow: hidden;
+	background:  url('/assets/img/bliss-pic.jpg');
+	background-size: cover;
+	font-family: 'Gotham';
+	font-weight: lighter;
+	font-size: 16px;
+}
+
+#wrapper {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+#results {
+	position: relative;
+	width: 640px;
+	height: 480px;
+	background: #959595;
+	border: 3px outset black;
+	border-radius: 5px;
+	top:  50%;
+	left:  50%;
+	transform:  translate(-50%, -50%);
+	text-align: center;
+}
+
+#results h1 {
+	background: rgb(240, 240, 240);
+	margin: 0;
+	padding: 0.34em 0;
+	font-size: 1.25em;
+	font-style: italic;
+	text-transform: uppercase;
+}
+
+#results span.display {
+	background: rgb(240, 240, 240);
+	padding: 0.125em 0.375em;
+	border: 1px solid black;
+	border-radius: 2px;
+	font-family: 'Digital7';
+	font-style: italic;
+	font-size: 1.125em;
+}
+
+#results .cat-poster {
+	max-height: 160px;
+	border: 1px solid black;
+	border-radius: 2px;
+}
+
+#results #nextRound {
+	margin-top: 1em;
+}

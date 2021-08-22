@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>conmod</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="assets/fonts/fonts.css"/>
+	<link rel="stylesheet" type="text/css" href="css/result.css"/>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="results">
+			<h1>results</h1>
+			<p>You rated <span class="display" id="count"></span> tweets in <span class="display" id="timer"></span> seconds.</p>
+			<p>You rated <span class="display" id="correct"></span> tweets correctly.</p>
+			<p>You rated <span class="display" id="fail"></span> tweets incorrectly.</p>
+			<p>You let the AI decide for you <span class="display" id="pass"></span> times.</p>
+			<p>You can always be more productive! Hang in there!</p>
+			<img class="cat-poster" src="assets/img/hang-in-there-cat.jpg"/>
+			<br/>
+			<button id="nextRound">Get Back To Work</button>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		let scoreboard = JSON.parse(window.localStorage.getItem('scoreboard'));
+
+		document.getElementById('count').innerHTML = scoreboard.results.length;
+		document.getElementById('timer').innerHTML = scoreboard.timer;
+		document.getElementById('correct').innerHTML = scoreboard.correct;
+		document.getElementById('fail').innerHTML = scoreboard.fail;
+		document.getElementById('pass').innerHTML = scoreboard.pass;
+
+		function nextRound(event) {
+			event.preventDefault();
+			scoreboard.round++;
+			scoreboard.timer -= 5;
+			scoreboard.correct = 0;
+			scoreboard.fail = 0;
+			scoreboard.pass = 0;
+			window.localStorage.setItem('scoreboard', JSON.stringify(scoreboard));
+			window.location.assign(window.location.origin + '/index.html');
+		}
+
+		document.getElementById('nextRound').addEventListener('click', nextRound);
+	</script>
+</body>
+</html>
