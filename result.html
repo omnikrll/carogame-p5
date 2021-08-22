@@ -38,7 +38,8 @@
 			scoreboard.correct = 0;
 			scoreboard.fail = 0;
 			scoreboard.pass = 0;
-			window.localStorage.setItem('scoreboard', JSON.stringify(scoreboard));
+			scoreboard = JSON.stringify(scoreboard);
+			window.localStorage.setItem('scoreboard', scoreboard);
 			window.location.assign(window.location.origin + '/index.html');
 		}
 

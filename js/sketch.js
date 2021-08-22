@@ -1,4 +1,5 @@
 let mainWindow = false,
+	header = false,
 	data = false,
 	post = false,
 	postDiv = false,
@@ -78,6 +79,11 @@ function renderPlayfield() {
 		mainWindow.parent('sketch');
 	}
 
+	if (!header) {
+		header = createElement('h1', 'conmod');
+		header.parent(mainWindow);
+	}
+
 	if (!timerDisplay) {
 		timerDisplay = createDiv().addClass('timerDisplay');
 		timerDisplay.parent(mainWindow);
@@ -88,7 +94,7 @@ function renderPlayfield() {
 		button1 = createButton('Approve');
 		button1.parent(mainWindow);
 		button1.addClass('rateButton').addClass('approve');
-		button1.position(15, 367);
+		button1.position(15, 367); //move this to css
 		button1.mousePressed(approve);
 	}
 
@@ -96,7 +102,7 @@ function renderPlayfield() {
 		button2 = createButton('AI Decides');
 		button2.parent(mainWindow);
 		button2.addClass('rateButton').addClass('pass');
-		button2.position(228, 367);
+		button2.position(228, 367); //move this to css
 		button2.mousePressed(pass);
 	}
 
@@ -104,7 +110,7 @@ function renderPlayfield() {
 		button3 = createButton('Harmful');
 		button3.parent(mainWindow);
 		button3.addClass('rateButton').addClass('deny');
-		button3.position(441, 367);	
+		button3.position(441, 367);	//move this to css
 		button3.mousePressed(denyMenu);
 	}
 }

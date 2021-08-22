@@ -3,8 +3,35 @@
 <head>
 	<meta charset="utf-8">
 	<title>conmod</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+	<link rel="stylesheet" type="text/css" href="assets/fonts/fonts.css"/>
+	<link rel="stylesheet" type="text/css" href="css/splash.css"/>
 </head>
 <body>
-<a href="rating.html">start</a>
+	<div id="wrapper">
+		<div id="dialog">
+			<h1>conmod</h1>
+			<p>You will have <span class="display" id="timer"></span> seconds to rate as many posts as you can.</p>
+			<p>Quantity over quality!</p>
+			<p>Quality counts!</p>
+			<button id="start">Start</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		let scoreboard = window.localStorage.getItem('scoreboard');
+		let timer = 30;
+
+		if (!!scoreboard) {
+			scoreboard = JSON.parse(scoreboard);
+			timer = scoreboard.timer;
+		}
+
+		document.getElementById('timer').innerHTML = timer;
+
+		document.getElementById('start').addEventListener('click', function(event) {
+			event.preventDefault();
+			window.location.assign(window.location.origin + '/rating.html');
+		});
+	</script>
 </body>
 </html>

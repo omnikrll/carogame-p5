@@ -7,10 +7,6 @@ body {
 	font-size: 16px;
 }
 
-br {
-	height: 1em;
-}
-
 #wrapper {
 	position: relative;
 	width: 100vw;
@@ -21,7 +17,7 @@ br {
 	left: 0;
 }
 
-#results {
+#dialog {
 	position: relative;
 	width: 640px;
 	height: 480px;
@@ -34,32 +30,11 @@ br {
 	text-align: center;
 }
 
-#results h1 {
-	background: rgb(240, 240, 240);
-	margin: 0;
-	padding: 0.34em 0;
-	font-size: 1.25em;
-	font-style: italic;
-	text-transform: uppercase;
-	border-bottom: 1px solid black;
-}
-
-#results span.display {
-	background: rgb(240, 240, 240);
-	padding: 0.125em 0.375em;
-	border: 1px solid black;
-	border-radius: 2px;
-	font-family: 'Digital7';
-	font-style: italic;
+#dialog h1 {
+	margin: 0 0 6em 0;
 	font-size: 1.125em;
-}
-
-#results .cat-poster {
-	max-height: 160px;
-	border: 1px solid black;
-	border-radius: 2px;
-}
-
-#results #nextRound {
-	margin-top: 1em;
+	padding: 0.34em 0.67em;
+	font-style: italic;
+	background: rgb(240, 240, 240);
+	text-align: left;
 }
