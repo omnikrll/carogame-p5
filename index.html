@@ -23,8 +23,20 @@
 
 		if (!!scoreboard) {
 			scoreboard = JSON.parse(scoreboard);
-			timer = scoreboard.timer;
+		} else {
+			scoreboard = {
+				"round": 1,
+				"correct": 0,
+				"fail": 0,
+				"pass": 0,
+				"timer": timer,
+				"results": []
+			}
+
+			window.localStorage.setItem('scoreboard', JSON.stringify(scoreboard));
 		}
+
+		timer = scoreboard.timer;
 
 		document.getElementById('timer').innerHTML = timer;
 

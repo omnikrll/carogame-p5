@@ -11,16 +11,7 @@ let mainWindow = false,
 	timer = null,
 	timerDisplay = false,
 	timerFontSize = 32,
-	round = [];
-
-let scoreboard = {
-	"round": 1,
-	"correct": 0,
-	"fail": 0,
-	"pass": 0,
-	"timer": 30,
-	"results": []
-}
+	results = [];
 
 let run = true;
 
@@ -131,6 +122,7 @@ function renderPost() {
 }
 
 function approve() {
+	if (!!menu) menu.remove();
 	if (post.human_rating == 0) {
 		scoreboard.correct++
 	} else {
@@ -165,18 +157,20 @@ function deny(value) {
 }
 
 function pass() {
+	if (!!menu) menu.remove();
 	scoreboard.pass++;
 	handleResult(-1);
 }
 
 function handleResult(value) {
 	post.player_rating = value;
-	scoreboard.results.push(post);
+	results.push(post);
 	renderPost();
 }
 
 function roundOver() {
 	alert('round over');
+	scoreboard.results.push(results);
 	storeItem('scoreboard', JSON.stringify(scoreboard));
 	window.location.assign(window.location.origin + '/result.html');
 }

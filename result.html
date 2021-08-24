@@ -11,6 +11,7 @@
 	<div id="wrapper">
 		<div id="results">
 			<h1>results</h1>
+			<p>That was your <span class="display" id="round"></span> round.</p>
 			<p>You rated <span class="display" id="count"></span> tweets in <span class="display" id="timer"></span> seconds.</p>
 			<p>You rated <span class="display" id="correct"></span> tweets correctly.</p>
 			<p>You rated <span class="display" id="fail"></span> tweets incorrectly.</p>
@@ -24,8 +25,23 @@
 
 	<script type="text/javascript">
 		let scoreboard = JSON.parse(window.localStorage.getItem('scoreboard'));
+		let reset = scoreboard.round >= 3;
+		let round_text;
 
-		document.getElementById('count').innerHTML = scoreboard.results.length;
+		switch (scoreboard.round) {
+			case 1:
+				round_text = "1st";
+				break;
+			case 2:
+				round_text = "2nd";
+				break;
+			case 3:
+				round_text = "3rd";
+				break;
+		}
+
+		document.getElementById('round').innerHTML = round_text;
+		document.getElementById('count').innerHTML = scoreboard.results[scoreboard.round - 1].length;
 		document.getElementById('timer').innerHTML = scoreboard.timer;
 		document.getElementById('correct').innerHTML = scoreboard.correct;
 		document.getElementById('fail').innerHTML = scoreboard.fail;
@@ -33,13 +49,20 @@
 
 		function nextRound(event) {
 			event.preventDefault();
-			scoreboard.round++;
-			scoreboard.timer -= 5;
 			scoreboard.correct = 0;
 			scoreboard.fail = 0;
 			scoreboard.pass = 0;
-			scoreboard = JSON.stringify(scoreboard);
-			window.localStorage.setItem('scoreboard', scoreboard);
+
+			if (reset) {
+				scoreboard.round = 1;
+				scoreboard.timer = 30;
+				scoreboard.results = [];
+			} else {
+				scoreboard.round++;
+				scoreboard.timer -= 5;				
+			}
+
+			window.localStorage.setItem('scoreboard', JSON.stringify(scoreboard));
 			window.location.assign(window.location.origin + '/index.html');
 		}
 
