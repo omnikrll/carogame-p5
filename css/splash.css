@@ -17,6 +17,27 @@ body {
 	left: 0;
 }
 
+#message {
+	position: absolute;
+	top: 5em;
+	left:  1em;
+	width: 240px;
+	/*height: 60px;*/
+	background: linear-gradient(359deg, rgba(20,131,9,1) 0%, rgba(36,198,20,1) 66%, rgba(175,254,167,1) 100%);
+	border: 2px outset black;
+	border-radius: 4px;
+	font-family: 'Gotham';
+	font-weight: 200;
+	font-size: 0.75em;
+	padding: 0.25em;
+}
+
+#message h2 {
+	font-size: inherit;
+	margin: 0;
+	font-weight: bold;
+}
+
 #dialog {
 	position: relative;
 	width: 640px;

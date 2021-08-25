@@ -6,8 +6,9 @@
 	<link rel="stylesheet" type="text/css" href="css/normalize.css"/>
 	<link rel="stylesheet" type="text/css" href="assets/fonts/fonts.css"/>
 	<link rel="stylesheet" type="text/css" href="css/splash.css"/>
+	<script defer type="text/javascript" src="js/splash.js"></script>
 </head>
-<body>
+<body id="splash">
 	<div id="wrapper">
 		<div id="dialog">
 			<h1>conmod</h1>
@@ -16,34 +17,10 @@
 			<p>Quality counts!</p>
 			<button id="start">Start</button>
 		</div>
+		<div id="message">
+			<h2>Boss</h2>
+			<p>temporary message text just for testing this</p>
+		</div>
 	</div>
-	<script type="text/javascript">
-		let scoreboard = window.localStorage.getItem('scoreboard');
-		let timer = 30;
-
-		if (!!scoreboard) {
-			scoreboard = JSON.parse(scoreboard);
-		} else {
-			scoreboard = {
-				"round": 1,
-				"correct": 0,
-				"fail": 0,
-				"pass": 0,
-				"timer": timer,
-				"results": []
-			}
-
-			window.localStorage.setItem('scoreboard', JSON.stringify(scoreboard));
-		}
-
-		timer = scoreboard.timer;
-
-		document.getElementById('timer').innerHTML = timer;
-
-		document.getElementById('start').addEventListener('click', function(event) {
-			event.preventDefault();
-			window.location.assign(window.location.origin + '/rating.html');
-		});
-	</script>
 </body>
 </html>

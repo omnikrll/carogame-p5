@@ -1,0 +1,78 @@
+{
+	"splash": {
+		"good": [
+			"splash screen good message 1",
+			"splash screen good message 2",
+			"splash screen good message 3",
+			"splash screen good message 4",
+			"splash screen good message 5"
+		],
+		"okay": [
+			"splash screen okay message 1",
+			"splash screen okay message 2",
+			"splash screen okay message 3",
+			"splash screen okay message 4",
+			"splash screen okay message 5"
+		],
+		"bad": [
+			"splash screen bad message 1",
+			"splash screen bad message 2",
+			"splash screen bad message 3",
+			"splash screen bad message 4",
+			"splash screen bad message 5"
+		],
+		"start": [
+			"splash screen start message 1",
+			"splash screen start message 2",
+			"splash screen start message 3",
+			"splash screen start message 4",
+			"splash screen start message 5",
+		]
+	},
+	"rating": {
+		"good": [
+			"rating screen good message 1",
+			"rating screen good message 2",
+			"rating screen good message 3",
+			"rating screen good message 4",
+			"rating screen good message 5"
+		],
+		"okay": [
+			"rating screen okay message 1",
+			"rating screen okay message 2",
+			"rating screen okay message 3",
+			"rating screen okay message 4",
+			"rating screen okay message 5"
+		],
+		"bad": [
+			"rating screen bad message 1",
+			"rating screen bad message 2",
+			"rating screen bad message 3",
+			"rating screen bad message 4",
+			"rating screen bad message 5"
+		]
+	},
+	"result": {
+		"good": [
+			"result screen good message 1",
+			"result screen good message 2",
+			"result screen good message 3",
+			"result screen good message 4",
+			"result screen good message 5"
+		],
+		"okay": [
+			"result screen okay message 1",
+			"result screen okay message 2",
+			"result screen okay message 3",
+			"result screen okay message 4",
+			"result screen okay message 5"
+		],
+		"bad": [
+			"result screen bad message 1",
+			"result screen bad message 2",
+			"result screen bad message 3",
+			"result screen bad message 4",
+			"result screen bad message 5"
+		]
+	}
+}

@@ -95,3 +95,15 @@
 	font-weight: 200;
 	font-style: italic;
 }
+
+@font-face {
+  font-family: 'ChicagoFLF';
+  src: url('ChicagoFLF.eot');
+  src: url('ChicagoFLF.eot?#iefix') format('embedded-opentype'),
+       url('ChicagoFLF.svg#ChicagoFLF') format('svg'),
+       url('ChicagoFLF.ttf') format('truetype'),
+       url('ChicagoFLF.woff') format('woff'),
+       url('ChicagoFLF.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
