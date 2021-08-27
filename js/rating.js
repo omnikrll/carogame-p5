@@ -18,6 +18,7 @@ let run = true;
 let reasons = [
 	'Sexism / Misogyny',
 	'Racism / Xenophobia',
+	'Homophobia / Transphobia',
 	'Ethnic or Religious Slur',
 	'Physical Threats',
 	'Sexual Threats',
@@ -124,10 +125,10 @@ function renderPost() {
 function approve() {
 	if (!!menu) menu.remove();
 	if (post.human_rating == 0) {
-		scoreboard.correct++
+		scoreboard.correct++;
 	} else {
 		scoreboard.fail++;
-	}	
+	}
 	handleResult(0);
 }
 

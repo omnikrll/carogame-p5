@@ -19,6 +19,7 @@ body {
 
 #message {
 	position: absolute;
+	display: none;
 	top: 5em;
 	left:  1em;
 	width: 240px;
@@ -30,6 +31,24 @@ body {
 	font-weight: 200;
 	font-size: 0.75em;
 	padding: 0.25em;
+}
+
+#message.active {
+	display: block;
+	animation-duration: 2000ms;
+	animation-name: slideOut;
+	animation-iteration-count: infinite;
+	animation-delay: 3000ms;
+}
+
+@keyframes slideOut {
+	from {
+		left: 1em;
+	}
+
+	to {
+		left: -100%;
+	}
 }
 
 #message h2 {

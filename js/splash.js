@@ -7,8 +7,28 @@ let messages,
 fetch('/js/messages.json')
 	.then(response => response.json())
 	.then(data => {
-		messages = data.splash;
+		if (scoreboard.round == 1) {
+			messages = data.splash.start;
+		} else if (scoreboard.correct > fail) {
+			messages = data.splash.good;
+		} else if (scoreboard.correct == fail) {
+			messages = data.splash.okay;
+		} else if (scoreboard.correct < fail) {
+			messages = data.splash.bad;
+		}
 	});
+
+function processScore() {
+	//time modifier = total / time
+
+	//base score = correct / incorrect
+
+	//ai modifier = pass / total
+
+	//ai modified score = base - modifier
+
+	//final score = ai modified score * time modifier
+}
 
 if (!!scoreboard) {
 	scoreboard = JSON.parse(scoreboard);
@@ -32,29 +52,29 @@ let messageBox = document.querySelector('#message');
 let messageText = document.querySelector('#message p');
 
 function displayMessage() {
-	let subset;
-
-	if (scoreboard.round == 1) {
-		subset = messages.start;
-	} else if (correct > fail) {
-		subset = messages.good;
-	} else if (correct == fail) {
-		subset = messages.okay;
-	} else if (correct < fail) {
-		subset = messages.bad;
-	}
-
-	let message = subset[Math.floor(Math.random() * subset.length)];
+	let i = Math.floor(Math.random() * messages.length),
+		message = messages[i];
 
 	messageText.innerHTML = message;
+	messageBox.classList.add('active');
+
 	messageBox.addEventListener('animationend', function(event) {
+		alert('hello');
 		messageBox.removeEventListener('animationend');
 		messageBox.classList.remove('active');
 	});
-	messageBox.classList.add('active');
 }
+
+function initialize() {
+	displayMessage();
+	clearTimeout(timeout);
+	interval = setInterval(displayMessage, 5000);
+}
+
+timeout = setTimeout(initialize, 300);
 
 document.getElementById('start').addEventListener('click', function(event) {
 	event.preventDefault();
+	clearInterval(interval);
 	window.location.assign(window.location.origin + '/rating.html');
 });
