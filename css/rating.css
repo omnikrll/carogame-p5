@@ -29,42 +29,72 @@ br {
 
 .mainWindow {
 	position: relative;
-	width: 820px;
-	height: 480px;
-	background: #959595;
-	border: 3px outset black;
-	border-radius: 5px;
+	width: 900px;
+	height: 560px;
+	background: url('/assets/img/paper/conmods_baackground_dashboard_JUSTBACKGROUND.png');
+	background-size: 102%;
+	background-repeat: no-repeat;
+/*	border: 3px outset black;
+	border-radius: 5px;*/
 	top:  50%;
 	left:  50%;
 	transform:  translate(-50%, -50%);
+
 }
 
 .mainWindow h1 {
-	background: rgb(240, 240, 240);
 	margin: 0;
+	height: 1.125em;
 	padding: 0.34em 0.67em;
-	font-size: 1.125em;
 	font-style: italic;
-	border-bottom: 1px solid black;
+	background: url('/assets/img/paper/conmods_baackground_whitebar_nocontent.png');
+	background-size: cover;
+	text-align: left;
+	display: flex;
+	justify-content: space-between;
+}
+
+.mainWindow h1 .logo {
+	height: 1.125em;
+	width: 3em;
+	background: url('/assets/img/paper/logo.png');
+	background-size: contain;
+}
+
+.mainWindow h1 .indicator {
+	height: 36px;
+	width: 36px;
+	background: url('/assets/img/paper/indicator-black.png');
+	background-size: contain;
 }
 
 .mainWindow .postDiv {
-	position: absolute;
-	top: 48px;
-	left: 15px;
+	position: relative;
+	top: 60px;
+	left: 50%;
 	font-family: 'Gotham';
 	font-size: 18px;
-	border:  1px solid black;
+	border: 1px solid black;
 	border-radius: 2px;
-	padding: 2em;
+	padding: 0.5em;
 	box-sizing: border-box;
-	background:  rgb(240, 240, 240);
+	background: rgb(240, 240, 240);
+	width: 320px;
+	transform: translateX(-50%);
+	height: 140px;
+	display: flex;
+}
 
+.mainWindow .controls {
+	position: relative;
+	top: 120px;
+	display: flex;
+	justify-content: space-around;
 }
 
 .mainWindow .rateButton {
-	width: 180px;
-	height: 80px;
+	width: 100px;
+	height: 40px;
 	font-family: 'Gotham';
 	font-weight: lighter;
 	text-align: center;
@@ -94,17 +124,70 @@ br {
 	text-decoration: underline;
 }
 
-.mainWindow .timerDisplay {
+.mainWindow .mainDisplay {
+	display: grid;
+    grid-template-columns: 26% 48% 26%;
+}
+
+.mainWindow .mainDisplay > div {
+	/*border: 1px solid black;*/
+	height: 420px;
+}
+
+.mainWindow .mainDisplay .postDisplay {
+	background: url('/assets/img/paper/dashboard_bigcenterbox.png');
+	background-size: 390px 390px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.mainWindow .mainDisplay .postDisplay .content {
 	position: relative;
+	/*border:  1px solid black;*/
+	width: 370px;
+	height: 375px;
+	top: 21px;
+	left: 28px;
+}
+
+.avatar {
+	width: 50px;
+	height: 50px;
+}
+
+.mainWindow .newTickets {
+	background: url('/assets/img/paper/small_top_sidelayoutbox.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	margin-top: 1em;
+	padding: 1em;
+	width: 180px;
+	height: 40px;
+}
+
+.mainWindow .timerDisplay {
 	width: 180px;
 	height: 80px;
-	top:  15px;
-	left:  630px;
+	margin-top: 1em;
+	padding: 1em;
+	background: url('/assets/img/paper/middle_side_layoutbox.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+}
+
+.mainWindow .timerDisplay .timer {	
 	font-family:  'Digital7';
 	font-size: 32px;
 	font-style: italic;
 	text-align: center;
-	background: rgb(240, 240, 240);
-	border:  1px solid black;
-	border-radius:  2px;
+}
+
+.mainWindow .stats {
+	width: 180px;
+	height: 140px;
+	margin-top: 1em;
+	padding: 1em;
+	background: url('/assets/img/paper/side_layoutbox.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
 }

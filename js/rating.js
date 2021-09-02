@@ -1,5 +1,4 @@
 let mainWindow = false,
-	header = false,
 	data = false,
 	post = false,
 	postDiv = false,
@@ -13,7 +12,7 @@ let mainWindow = false,
 	timerFontSize = 32,
 	results = [];
 
-let run = true;
+let run = false;
 
 let reasons = [
 	'Sexism / Misogyny',
@@ -67,44 +66,38 @@ function draw() {
 
 function renderPlayfield() {
 	if (!mainWindow) {
-		mainWindow = createDiv().addClass('mainWindow');
-		mainWindow.parent('sketch');
+		mainWindow = select('.mainWindow');
 	}
 
-	if (!header) {
-		header = createElement('h1', 'conmod');
-		header.parent(mainWindow);
-	}
-
-	if (!timerDisplay) {
-		timerDisplay = createDiv().addClass('timerDisplay');
-		timerDisplay.parent(mainWindow);
-		timerDisplay.style('font-size', timerFontSize + 'px');
-	}
+	// if (!timerDisplay) {
+	// 	timerDisplay = createDiv().addClass('timerDisplay');
+	// 	timerDisplay.parent(mainWindow);
+	// 	timerDisplay.style('font-size', timerFontSize + 'px');
+	// }
 	
-	if (!button1) {
-		button1 = createButton('Approve');
-		button1.parent(mainWindow);
-		button1.addClass('rateButton').addClass('approve');
-		button1.position(15, 367); //move this to css
-		button1.mousePressed(approve);
-	}
+	// if (!button1) {
+	// 	button1 = createButton('Approve');
+	// 	button1.parent(mainWindow);
+	// 	button1.addClass('rateButton').addClass('approve');
+	// 	button1.position(15, 367); //move this to css
+	// 	button1.mousePressed(approve);
+	// }
 
-	if (!button2) {
-		button2 = createButton('AI Decides');
-		button2.parent(mainWindow);
-		button2.addClass('rateButton').addClass('pass');
-		button2.position(228, 367); //move this to css
-		button2.mousePressed(pass);
-	}
+	// if (!button2) {
+	// 	button2 = createButton('AI Decides');
+	// 	button2.parent(mainWindow);
+	// 	button2.addClass('rateButton').addClass('pass');
+	// 	button2.position(228, 367); //move this to css
+	// 	button2.mousePressed(pass);
+	// }
 
-	if (!button3) {
-		button3 = createButton('Harmful');
-		button3.parent(mainWindow);
-		button3.addClass('rateButton').addClass('deny');
-		button3.position(441, 367);	//move this to css
-		button3.mousePressed(denyMenu);
-	}
+	// if (!button3) {
+	// 	button3 = createButton('Harmful');
+	// 	button3.parent(mainWindow);
+	// 	button3.addClass('rateButton').addClass('deny');
+	// 	button3.position(441, 367);	//move this to css
+	// 	button3.mousePressed(denyMenu);
+	// }
 }
 
 function getRandomPost() {
@@ -115,10 +108,10 @@ function getRandomPost() {
 function renderPost() {
 	noLoop();
 	post = getRandomPost();
-	if (typeof postDiv == 'object') postDiv.remove();
-	postDiv = createDiv(post.text).size(606, 240);
-	postDiv.parent(mainWindow);
-	postDiv.class('postDiv');
+	// if (typeof postDiv == 'object') postDiv.remove();
+	// postDiv = createDiv(post.text).size(606, 240);
+	// postDiv.parent(mainWindow);
+	// postDiv.class('postDiv');
 	loop();
 }
 

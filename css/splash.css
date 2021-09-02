@@ -92,8 +92,8 @@ body {
 }
 
 #dialog h1 .indicator {
-	height: 1.125em;
-	width: 1.125em;
+	height: 36px;
+	width: 36px;
 	background: url('/assets/img/paper/indicator-black.png');
 	background-size: contain;
 }
