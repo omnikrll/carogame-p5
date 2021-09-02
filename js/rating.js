@@ -10,9 +10,15 @@ let mainWindow = false,
 	timer = null,
 	timerDisplay = false,
 	timerFontSize = 32,
-	results = [];
+	goal = 1000,
+	newTickets = 100,
+	results = [],
+	correctSound,
+	failSound,
+	messageSound,
+	passSound;
 
-let run = false;
+let run = true;
 
 let reasons = [
 	'Sexism / Misogyny',
@@ -25,8 +31,15 @@ let reasons = [
 	'Harassment (negative)'
 ];
 
+let avatars = ['square', 'triangle', 'circle', 'hex'];
+
 function preload() {
 	data = loadJSON('/js/data.json');
+	soundFormats('mp3', 'ogg');
+	correctSound = loadSound('/assets/audio/p5_alert_3-0db.ogg');
+	failSound = loadSound('/assets/audio/p5_alert_2-0db.ogg');
+	messageSound = loadSound('/assets/audio/p5_alert_1-0db.ogg');
+	passSound = loadSound('/assets/audio/p5_alert_4-0db.ogg');
 }
 
 function setup() {
@@ -37,9 +50,19 @@ function setup() {
 	}
 
 	timer = scoreboard.timer;
+	newTickets *= scoreboard.round;
+
+	if (scoreboard.results[scoreboard.round - 1]) {
+		goal = scoreboard.results[scoreboard.round - 1].length * 2;
+	}
+
+	select('#goal').html(goal);
 }
 
 function draw() {
+	select('#count').html(results.length);
+	select('.newTickets span').html(newTickets);
+
 	if (!post) {
 		renderPost();
 	}
@@ -51,6 +74,17 @@ function draw() {
 			timerFontSize += 4;
 			timerDisplay.style('font-size', timerFontSize + 'px');
 		}
+	}
+
+	if (run && frameCount % 105 == 0) {
+		newTickets += Math.floor(Math.random() * 20);
+	}
+
+	if (results.length  > 1) {
+		let rate = scoreboard.timer / results.length;
+		select('#rate').html(rate.toFixed(2));
+	} else {
+		select('#rate').html(scoreboard.timer);
 	}
 
 	timerDisplay.html('00:' + timer.toString().padStart(2,'0')); 
@@ -69,35 +103,25 @@ function renderPlayfield() {
 		mainWindow = select('.mainWindow');
 	}
 
-	// if (!timerDisplay) {
-	// 	timerDisplay = createDiv().addClass('timerDisplay');
-	// 	timerDisplay.parent(mainWindow);
-	// 	timerDisplay.style('font-size', timerFontSize + 'px');
-	// }
+	if (!timerDisplay) {
+		timerDisplay = select('.timerDisplay .timer');
+		timerDisplay.style('font-size', timerFontSize + 'px');
+	}
 	
-	// if (!button1) {
-	// 	button1 = createButton('Approve');
-	// 	button1.parent(mainWindow);
-	// 	button1.addClass('rateButton').addClass('approve');
-	// 	button1.position(15, 367); //move this to css
-	// 	button1.mousePressed(approve);
-	// }
+	if (!button1) {
+		button1 = select('.rateButton.approve');
+		button1.mousePressed(approve);
+	}
 
-	// if (!button2) {
-	// 	button2 = createButton('AI Decides');
-	// 	button2.parent(mainWindow);
-	// 	button2.addClass('rateButton').addClass('pass');
-	// 	button2.position(228, 367); //move this to css
-	// 	button2.mousePressed(pass);
-	// }
+	if (!button2) {
+		button2 = select('.rateButton.pass');
+		button2.mousePressed(pass);
+	}
 
-	// if (!button3) {
-	// 	button3 = createButton('Harmful');
-	// 	button3.parent(mainWindow);
-	// 	button3.addClass('rateButton').addClass('deny');
-	// 	button3.position(441, 367);	//move this to css
-	// 	button3.mousePressed(denyMenu);
-	// }
+	if (!button3) {
+		button3 = select('.rateButton.deny');
+		button3.mousePressed(denyMenu);
+	}
 }
 
 function getRandomPost() {
@@ -105,28 +129,36 @@ function getRandomPost() {
 	return data.content.splice(i, 1)[0];
 }
 
+function getRandomAvatarClass() {
+	let i = Math.floor(Math.random() * avatars.length);
+	return avatars[i];
+}
+
+let previousClass;
+
 function renderPost() {
 	noLoop();
 	post = getRandomPost();
-	// if (typeof postDiv == 'object') postDiv.remove();
-	// postDiv = createDiv(post.text).size(606, 240);
-	// postDiv.parent(mainWindow);
-	// postDiv.class('postDiv');
+	select('.post').html(post.text);
+	let newClass = getRandomAvatarClass();
+	select('.avatar').removeClass(previousClass).addClass(newClass);
+	previousClass = newClass;
 	loop();
 }
 
 function approve() {
-	if (!!menu) menu.remove();
 	if (post.human_rating == 0) {
 		scoreboard.correct++;
+		correctSound.play();
 	} else {
 		scoreboard.fail++;
+		failSound.play();
 	}
 	handleResult(0);
 }
 
 function denyMenu() {
-	menu = createDiv().addClass('menu').parent(mainWindow);
+	menu = createDiv().addClass('menu').parent(select('.postDiv'));
 
 	let ul = createElement('ul').parent(menu);
 
@@ -141,22 +173,26 @@ function denyMenu() {
 }
 
 function deny(value) {
-	if (!!menu) menu.remove();
 	if (post.human_rating == value) {
 		scoreboard.correct++;
+		correctSound.play();
 	} else {
 		scoreboard.fail++;
+		failSound.play();
 	}
 	handleResult(value);
 }
 
 function pass() {
-	if (!!menu) menu.remove();
 	scoreboard.pass++;
+	passSound.play();
 	handleResult(-1);
 }
 
 function handleResult(value) {
+	if (!!menu) {
+		menu.remove();
+	}
 	post.player_rating = value;
 	results.push(post);
 	renderPost();
