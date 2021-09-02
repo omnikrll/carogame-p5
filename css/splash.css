@@ -1,6 +1,6 @@
 body {
 	overflow: hidden;
-	background:  url('/assets/img/bliss-pic.jpg');
+	background:  url('/assets/img/paper/windows_vista_background.jpg');
 	background-size: cover;
 	font-family: 'Gotham';
 	font-weight: lighter;
@@ -61,9 +61,11 @@ body {
 	position: relative;
 	width: 640px;
 	height: 480px;
-	background: #959595;
-	border: 3px outset black;
-	border-radius: 5px;
+	background: url('/assets/img/paper/conmods_baackground_dashboard_JUSTBACKGROUND.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+/*	border: 3px outset black;
+	border-radius: 5px;*/
 	top:  50%;
 	left:  50%;
 	transform:  translate(-50%, -50%);
@@ -71,10 +73,27 @@ body {
 }
 
 #dialog h1 {
-	margin: 0 0 6em 0;
-	font-size: 1.125em;
+	margin: 0 0 3.5em 0;
+	height: 1.125em;
 	padding: 0.34em 0.67em;
 	font-style: italic;
-	background: rgb(240, 240, 240);
+	background: url('/assets/img/paper/conmods_baackground_whitebar_nocontent.png');
+	background-size: cover;
 	text-align: left;
+	display: flex;
+	justify-content: space-between;
+}
+
+#dialog h1 .logo {
+	height: 1.125em;
+	width: 3em;
+	background: url('/assets/img/paper/logo.png');
+	background-size: contain;
+}
+
+#dialog h1 .indicator {
+	height: 1.125em;
+	width: 1.125em;
+	background: url('/assets/img/paper/indicator-black.png');
+	background-size: contain;
 }

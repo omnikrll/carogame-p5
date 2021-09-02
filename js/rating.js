@@ -170,7 +170,8 @@ function handleResult(value) {
 }
 
 function roundOver() {
-	alert('round over');
+	noLoop();
+	// alert('round over');
 	scoreboard.results.push(results);
 	storeItem('scoreboard', JSON.stringify(scoreboard));
 	window.location.assign(window.location.origin + '/result.html');

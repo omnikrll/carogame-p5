@@ -1,80 +1,36 @@
-let scoreboard = window.localStorage.getItem('scoreboard');
-let timer = 30;
-let messages,
-	timeout,
-	interval;
+let timer = 25;
+let	scoreboard,
+	messages;
 
-fetch('/js/messages.json')
-	.then(response => response.json())
-	.then(data => {
-		if (scoreboard.round == 1) {
-			messages = data.splash.start;
-		} else if (scoreboard.correct > fail) {
-			messages = data.splash.good;
-		} else if (scoreboard.correct == fail) {
-			messages = data.splash.okay;
-		} else if (scoreboard.correct < fail) {
-			messages = data.splash.bad;
-		}
-	});
-
-function processScore() {
-	//time modifier = total / time
-
-	//base score = correct / incorrect
-
-	//ai modifier = pass / total
-
-	//ai modified score = base - modifier
-
-	//final score = ai modified score * time modifier
+function preload() {
+	messages = loadJSON('/js/messages.json');
 }
 
-if (!!scoreboard) {
-	scoreboard = JSON.parse(scoreboard);
-} else {
-	scoreboard = {
-		"round": 1,
-		"correct": 0,
-		"fail": 0,
-		"pass": 0,
-		"timer": timer,
-		"results": []
+function setup() {
+	if (getItem('scoreboard') != null) {
+		scoreboard = JSON.parse(getItem('scoreboard'));
+	} else {
+		scoreboard = {
+			"round": 1,
+			"correct": 0,
+			"fail": 0,
+			"pass": 0,
+			"timer": timer,
+			"results": []
+		};
+
+		storeItem('scoreboard', JSON.stringify(scoreboard));
 	}
 
-	window.localStorage.setItem('scoreboard', JSON.stringify(scoreboard));
+	timer = scoreboard.timer;
+	select('#timer').html(timer);
+	select('#start').mousePressed(startGame);
 }
 
-timer = scoreboard.timer;
-document.getElementById('timer').innerHTML = timer;
+function draw() {
 
-let messageBox = document.querySelector('#message');
-let messageText = document.querySelector('#message p');
-
-function displayMessage() {
-	let i = Math.floor(Math.random() * messages.length),
-		message = messages[i];
-
-	messageText.innerHTML = message;
-	messageBox.classList.add('active');
-
-	messageBox.addEventListener('animationend', function(event) {
-		alert('hello');
-		messageBox.removeEventListener('animationend');
-		messageBox.classList.remove('active');
-	});
 }
 
-function initialize() {
-	displayMessage();
-	clearTimeout(timeout);
-	interval = setInterval(displayMessage, 5000);
-}
-
-timeout = setTimeout(initialize, 300);
-
-document.getElementById('start').addEventListener('click', function(event) {
-	event.preventDefault();
-	clearInterval(interval);
+function startGame() {
 	window.location.assign(window.location.origin + '/rating.html');
-});
+}
