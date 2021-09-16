@@ -8,6 +8,7 @@ let mainWindow = false,
 	button3 = false,
 	menu = false,
 	timer = null,
+	time_elapsed = null,
 	timerDisplay = false,
 	timerFontSize = 32,
 	goal = 1000,
@@ -70,10 +71,14 @@ function draw() {
 	if (run && frameCount % 60 == 0 && timer > 0) {
 		timer--;
 
+		time_elapsed = scoreboard.timer - timer;
+
 		if (timer <= 5) {
 			timerFontSize += 4;
 			timerDisplay.style('font-size', timerFontSize + 'px');
 		}
+
+		console.log(time_elapsed, data.content.length);
 	}
 
 	if (run && frameCount % 105 == 0) {
@@ -140,6 +145,9 @@ let previousClass;
 function renderPost() {
 	noLoop();
 	post = getRandomPost();
+	if (data.content.length == 0) {
+		roundOver();
+	}
 	select('.post').html(post.text);
 	let newClass = getRandomAvatarClass();
 	select('.avatar').removeClass(previousClass).addClass(newClass);
@@ -200,9 +208,26 @@ function handleResult(value) {
 	renderPost();
 }
 
+
+
+function processScore() {
+	let time_modifier = results.length / time_elapsed,
+		base_score = +scoreboard.correct / +scoreboard.fail,
+		ai_modifier = +scoreboard.pass / +results.length,
+		modified_score = base_score - ai_modifier,
+		score = modified_score * time_elapsed,
+		round = {
+			"posts": results,
+			"time_elapsed": time_elapsed,
+			"score": score
+		};
+
+	return round;
+}
+
 function roundOver() {
-	alert('round over');
-	scoreboard.results = results;
+	let i = scoreboard.round - 1;
+	scoreboard.results[i] = processScore();
 	console.log(scoreboard.results);
 	storeItem('scoreboard', JSON.stringify(scoreboard));
 	window.location.assign(window.location.origin + '/result.html');

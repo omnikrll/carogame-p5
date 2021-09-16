@@ -21,30 +21,53 @@ br {
 	left: 0;
 }
 
-#results {
+.mainWindow {
 	position: relative;
-	width: 640px;
-	height: 480px;
-	background: #959595;
-	border: 3px outset black;
-	border-radius: 5px;
+	width: 900px;
+	height: 560px;
+	background: url('/assets/img/paper/conmods_baackground_dashboard_JUSTBACKGROUND.png');
+	background-size: 102%;
+	background-repeat: no-repeat;
+/*	border: 3px outset black;
+	border-radius: 5px;*/
 	top:  50%;
 	left:  50%;
 	transform:  translate(-50%, -50%);
-	text-align: center;
+
 }
 
-#results h1 {
-	background: rgb(240, 240, 240);
+.mainWindow h1 {
 	margin: 0;
-	padding: 0.34em 0;
-	font-size: 1.25em;
+	height: 1.125em;
+	padding: 0.34em 0.67em;
 	font-style: italic;
-	text-transform: uppercase;
-	border-bottom: 1px solid black;
+	background: url('/assets/img/paper/conmods_baackground_whitebar_nocontent.png');
+	background-size: cover;
+	text-align: left;
+	display: flex;
+	justify-content: space-between;
 }
 
-#results span.display {
+.mainWindow h1 .logo {
+	height: 1.125em;
+	width: 3em;
+	background: url('/assets/img/paper/logo.png');
+	background-size: contain;
+}
+
+.mainWindow .textArea {
+	margin: 0 auto;
+	width: 640px;
+	height: 380px;
+	background: url('/assets/img/paper/dashboard_bigcenterbox.png');
+	background-size: 640px 380px;
+	background-repeat: no-repeat;
+	background-position: center;
+	text-align: center;
+	padding: 1em;
+}
+
+/*#results span.display {
 	background: rgb(240, 240, 240);
 	padding: 0.125em 0.375em;
 	border: 1px solid black;
@@ -62,4 +85,4 @@ br {
 
 #results #nextRound {
 	margin-top: 1em;
-}
+}*/

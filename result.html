@@ -12,17 +12,18 @@
 </head>
 <body>
 	<div id="wrapper">
-		<div id="results">
-			<h1>results</h1>
-			<p>That was your <span class="display" id="round"></span> round.</p>
-			<p>You rated <span class="display" id="count"></span> tweets in <span class="display" id="timer"></span> seconds.</p>
-			<p>You rated <span class="display" id="correct"></span> tweets correctly.</p>
-			<p>You rated <span class="display" id="fail"></span> tweets incorrectly.</p>
-			<p>You let the AI decide for you <span class="display" id="pass"></span> times.</p>
-			<p>You can always be more productive! Hang in there!</p>
-			<img class="cat-poster" src="assets/img/hang-in-there-cat.jpg"/>
-			<br/>
-			<button id="nextRound">Get Back To Work</button>
+		<div class="mainWindow">
+			<h1>
+				<div class="logo"></div>
+			</h1>
+			<div class="textArea">
+				<p id="intro_text"></p>
+				<p>You played <span class="display" id="round"></span>.</p>
+				<p>You rated <span class="display" id="count"></span> tweets in <span class="display" id="timer"></span> seconds.</p>
+				<p>Overall, you got <span class="display" id="correct"></span> correct, <span class="display" id="fail"></span> incorrect, and you used the AI <span class="display" id="pass"></span> times.</p>
+				<p id="outro_text"></p>
+				<button id="nextRound">Get Back To Work</button>
+			</div>
 		</div>
 	</div>
 </body>
