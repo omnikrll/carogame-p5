@@ -235,6 +235,7 @@ function processScore() {
 }
 
 function roundOver() {
+	
 	music.stop();
 
 	roundOverSound.onended(function() {
