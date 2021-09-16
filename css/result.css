@@ -64,7 +64,8 @@ br {
 	background-repeat: no-repeat;
 	background-position: center;
 	text-align: center;
-	padding: 1em;
+	padding: 1.5em;
+	box-sizing: border-box;
 }
 
 /*#results span.display {

@@ -17,7 +17,9 @@ let mainWindow = false,
 	correctSound,
 	failSound,
 	messageSound,
-	passSound;
+	passSound,
+	roundOverSound,
+	music;
 
 let run = true;
 
@@ -37,10 +39,13 @@ let avatars = ['square', 'triangle', 'circle', 'hex'];
 function preload() {
 	data = loadJSON('/js/data.json');
 	soundFormats('mp3', 'ogg');
-	correctSound = loadSound('/assets/audio/p5_alert_3-0db.ogg');
+	correctSound = loadSound('/assets/audio/gameplay-01.ogg');
 	failSound = loadSound('/assets/audio/p5_alert_2-0db.ogg');
-	messageSound = loadSound('/assets/audio/p5_alert_1-0db.ogg');
-	passSound = loadSound('/assets/audio/p5_alert_4-0db.ogg');
+	messageSound = loadSound('/assets/audio/gameplay-05.ogg');
+	passSound = loadSound('/assets/audio/gameplay-04.ogg');
+	roundOverSound = loadSound('/assets/audio/p5_alert_4-0db.ogg');
+	music = loadSound('/assets/audio/gameloop.ogg');
+
 }
 
 function setup() {
@@ -58,6 +63,8 @@ function setup() {
 	}
 
 	select('#goal').html(goal);
+
+	music.loop();
 }
 
 function draw() {
@@ -222,13 +229,22 @@ function processScore() {
 			"score": score
 		};
 
+	scoreboard.running_score = score;
+
 	return round;
 }
 
 function roundOver() {
-	let i = scoreboard.round - 1;
-	scoreboard.results[i] = processScore();
-	console.log(scoreboard.results);
-	storeItem('scoreboard', JSON.stringify(scoreboard));
-	window.location.assign(window.location.origin + '/result.html');
+	music.stop();
+
+	roundOverSound.onended(function() {
+		alert('Round Over');
+		let i = scoreboard.round - 1;
+		scoreboard.results[i] = processScore();
+		console.log(scoreboard.results);
+		storeItem('scoreboard', JSON.stringify(scoreboard));
+		window.location.assign(window.location.origin + '/result.html');
+	});
+
+	roundOverSound.play();
 }

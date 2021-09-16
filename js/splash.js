@@ -15,6 +15,7 @@ function setup() {
 			"correct": 0,
 			"fail": 0,
 			"pass": 0,
+			"running_score": 0,
 			"timer": timer,
 			"results": []
 		};
@@ -28,7 +29,6 @@ function setup() {
 }
 
 function draw() {
-
 }
 
 function startGame() {
