@@ -1,40 +1,39 @@
-let scoreboard = JSON.parse(window.localStorage.getItem('scoreboard'));
-let reset = scoreboard.round >= 3;
-let round_text;
+let scoreboard,
+	reset,
+	round_text;
 
-switch (scoreboard.round) {
-	case 1:
-		round_text = "1st";
-		break;
-	case 2:
-		round_text = "2nd";
-		break;
-	case 3:
-		round_text = "3rd";
-		break;
+function preload() {
 }
 
-function processScore() {
-	//time modifier = total / time
+function setup() {
+	scoreboard = JSON.parse(getItem('scoreboard'));
+	reset = scoreboard.round >= 3;
 
-	//base score = correct / incorrect
+	switch (scoreboard.round) {
+		case 1:
+			round_text = "1st";
+			break;
+		case 2:
+			round_text = "2nd";
+			break;
+		case 3:
+			round_text = "3rd";
+			break;
+	}
 
-	//ai modifier = pass / total
-
-	//ai modified score = base - modifier
-
-	//final score = ai modified score * time modifier
+	select('#round').html(round_text);
+	select('#count').html(scoreboard.results.length);
+	select('#timer').html(scoreboard.timer);
+	select('#correct').html(scoreboard.correct);
+	select('#fail').html(scoreboard.fail);
+	select('#pass').html(scoreboard.pass);
+	select('#nextRound').mousePressed(nextRound);
 }
 
-document.getElementById('round').innerHTML = round_text;
-document.getElementById('count').innerHTML = scoreboard.results[scoreboard.round - 1].length;
-document.getElementById('timer').innerHTML = scoreboard.timer;
-document.getElementById('correct').innerHTML = scoreboard.correct;
-document.getElementById('fail').innerHTML = scoreboard.fail;
-document.getElementById('pass').innerHTML = scoreboard.pass;
+function draw() {
+}
 
-function nextRound(event) {
-	event.preventDefault();
+function nextRound() {
 	scoreboard.correct = 0;
 	scoreboard.fail = 0;
 	scoreboard.pass = 0;
@@ -45,11 +44,9 @@ function nextRound(event) {
 		scoreboard.results = [];
 	} else {
 		scoreboard.round++;
-		scoreboard.timer -= 5;				
+		scoreboard.timer -= 5;
 	}
 
-	window.localStorage.setItem('scoreboard', JSON.stringify(scoreboard));
+	storeItem('scoreboard', JSON.stringify(scoreboard));
 	window.location.assign(window.location.origin + '/index.html');
 }
-
-document.getElementById('nextRound').addEventListener('click', nextRound);

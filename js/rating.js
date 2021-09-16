@@ -94,6 +94,7 @@ function draw() {
 	}
 
 	if (timer == 0) {
+		noLoop();
 		roundOver();
 	}
 }
@@ -195,13 +196,14 @@ function handleResult(value) {
 	}
 	post.player_rating = value;
 	results.push(post);
+	console.log(results.length);
 	renderPost();
 }
 
 function roundOver() {
-	noLoop();
-	// alert('round over');
-	scoreboard.results.push(results);
+	alert('round over');
+	scoreboard.results = results;
+	console.log(scoreboard.results);
 	storeItem('scoreboard', JSON.stringify(scoreboard));
 	window.location.assign(window.location.origin + '/result.html');
 }

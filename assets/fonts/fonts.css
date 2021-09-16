@@ -1,31 +1,3 @@
-/*@font-face {
-	font-family: 'DS-Digital';
-	src: url('ds_digital/DS-DIGI.ttf');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'DS-Digital';
-	src: url('ds_digital/DS-DIGIB.ttf');
-	font-weight: bold;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'DS-Digital';
-	src: url('ds_digital/DS-DIGII.TTF');
-	font-weight: normal;
-	font-style: italic;
-}
-
-@font-face {
-	font-family: 'DS-Digital';
-	src: url('ds_digital/DS-DIGIT.TTF');
-	font-weight: bold;
-	font-style: italic;
-}*/
-
 @font-face {
 	font-family: 'Digital7';
 	src: url('digital_7/digital-7 (mono).ttf');
@@ -94,16 +66,4 @@
 	src: url('gotham/Gotham/Gotham-LightItalic.otf');
 	font-weight: 200;
 	font-style: italic;
-}
-
-@font-face {
-  font-family: 'ChicagoFLF';
-  src: url('ChicagoFLF.eot');
-  src: url('ChicagoFLF.eot?#iefix') format('embedded-opentype'),
-       url('ChicagoFLF.svg#ChicagoFLF') format('svg'),
-       url('ChicagoFLF.ttf') format('truetype'),
-       url('ChicagoFLF.woff') format('woff'),
-       url('ChicagoFLF.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
 }
