@@ -19,7 +19,9 @@ let mainWindow = false,
 	messageSound,
 	passSound,
 	roundOverSound,
-	music;
+	music,
+	messages,
+	messageSet;
 
 let run = true;
 
@@ -45,7 +47,7 @@ function preload() {
 	passSound = loadSound('/assets/audio/gameplay-04.ogg');
 	roundOverSound = loadSound('/assets/audio/p5_alert_4-0db.ogg');
 	music = loadSound('/assets/audio/gameloop.ogg');
-
+	messages = loadJSON('/js/messages.new.json');
 }
 
 function setup() {
@@ -63,6 +65,8 @@ function setup() {
 	}
 
 	select('#goal').html(goal);
+
+	loadMessages();
 
 	music.loop();
 }
@@ -92,6 +96,10 @@ function draw() {
 		newTickets += Math.floor(Math.random() * 20);
 	}
 
+	if (frameCount % 180 == 0) {
+		displayMessage();
+	}
+
 	if (results.length  > 1) {
 		let rate = scoreboard.timer / results.length;
 		select('#rate').html(rate.toFixed(2));
@@ -109,6 +117,25 @@ function draw() {
 		noLoop();
 		roundOver();
 	}
+}
+
+function loadMessages() {
+	if (scoreboard.running_score == 0) {
+		messageSet = messages[0];
+	} else if (scoreboard.running_score > 0 && scoreboard.running_score <= 60) {
+		messageSet = messages[3];
+	} else if (scoreboard.running_score > 60 && scoreboard.running_score <= 80) {
+		messageSet = messages[2];
+	} else if (scoreboard.running_score >= 80) {
+		messageSet = messages[1];
+	}
+}
+
+function displayMessage() {
+	let i = Math.floor(Math.random() * messageSet.length),
+		message = messageSet[i];
+
+	console.log(message);
 }
 
 function renderPlayfield() {
@@ -201,7 +228,13 @@ function deny(value) {
 
 function pass() {
 	scoreboard.pass++;
-	passSound.play();
+	if (post.human_rating == post.ai_rating) {
+		scoreboard.correct++
+		correctSound.play();
+	} else {
+		scoreboard.fail++;
+		failSound.play();
+	}	
 	handleResult(-1);
 }
 
@@ -214,8 +247,6 @@ function handleResult(value) {
 	console.log(results.length);
 	renderPost();
 }
-
-
 
 function processScore() {
 	let time_modifier = results.length / time_elapsed,
@@ -235,7 +266,6 @@ function processScore() {
 }
 
 function roundOver() {
-	
 	music.stop();
 
 	roundOverSound.onended(function() {
