@@ -1,13 +1,22 @@
 let timer = 25;
 let	scoreboard,
 	messages,
-	messageSet;
+	messageSet,
+	messageSound,
+	music,
+	startSound;
 
 function preload() {
 	messages = loadJSON('/js/messages.new.json');
+	soundFormats('mp3', 'ogg');
+	music = loadSound('/assets/audio/gameloop.ogg');
+	messageSound = loadSound('/assets/audio/gameplay-05.ogg');
+	startSound = loadSound('/assets/audio/gameplay-01.ogg');
 }
 
 function setup() {
+	noCanvas();
+
 	if (getItem('scoreboard') != null) {
 		scoreboard = JSON.parse(getItem('scoreboard'));
 	} else {
@@ -29,6 +38,8 @@ function setup() {
 	timer = scoreboard.timer;
 	select('#timer').html(timer);
 	select('#start').mousePressed(startGame);
+
+	music.loop();
 }
 
 function loadMessages() {
@@ -44,7 +55,7 @@ function loadMessages() {
 }
 
 function draw() {
-	if (frameCount % 180 == 0) {
+	if (frameCount % 420 == 0) {
 		displayMessage();
 	}
 }
@@ -53,9 +64,20 @@ function displayMessage() {
 	let i = Math.floor(Math.random() * messageSet.length),
 		message = messageSet[i];
 
-	console.log(message);
+	let messageDiv = createDiv(message).addClass('message');
+	document.querySelector('.message').addEventListener('animationend', function() {
+		messageDiv.remove();
+	});
+
+	messageSound.play();
 }
 
 function startGame() {
-	window.location.assign(window.location.origin + '/rating.html');
+	music.stop();
+
+	startSound.onended(function() {
+		window.location.assign(window.location.origin + '/rating.html');
+	});
+
+	startSound.play();
 }

@@ -40,17 +40,18 @@ let avatars = ['square', 'triangle', 'circle', 'hex'];
 
 function preload() {
 	data = loadJSON('/js/data.json');
+	messages = loadJSON('/js/messages.new.json');
 	soundFormats('mp3', 'ogg');
-	correctSound = loadSound('/assets/audio/gameplay-01.ogg');
+	correctSound = loadSound('/assets/audio/gameplay-02.ogg');
 	failSound = loadSound('/assets/audio/p5_alert_2-0db.ogg');
 	messageSound = loadSound('/assets/audio/gameplay-05.ogg');
 	passSound = loadSound('/assets/audio/gameplay-04.ogg');
 	roundOverSound = loadSound('/assets/audio/p5_alert_4-0db.ogg');
 	music = loadSound('/assets/audio/gameloop.ogg');
-	messages = loadJSON('/js/messages.new.json');
 }
 
 function setup() {
+	noCanvas();
 	renderPlayfield();
 
 	if (getItem('scoreboard') != null) {
@@ -88,15 +89,13 @@ function draw() {
 			timerFontSize += 4;
 			timerDisplay.style('font-size', timerFontSize + 'px');
 		}
-
-		console.log(time_elapsed, data.content.length);
 	}
 
 	if (run && frameCount % 105 == 0) {
 		newTickets += Math.floor(Math.random() * 20);
 	}
 
-	if (frameCount % 180 == 0) {
+	if (frameCount % 420 == 0) {
 		displayMessage();
 	}
 
@@ -135,7 +134,12 @@ function displayMessage() {
 	let i = Math.floor(Math.random() * messageSet.length),
 		message = messageSet[i];
 
-	console.log(message);
+	let messageDiv = createDiv(message).addClass('message');
+	document.querySelector('.message').addEventListener('animationend', function() {
+		messageDiv.remove();
+	});
+
+	messageSound.play();
 }
 
 function renderPlayfield() {
@@ -191,11 +195,9 @@ function renderPost() {
 
 function approve() {
 	if (post.human_rating == 0) {
-		scoreboard.correct++;
-		correctSound.play();
+		correct();
 	} else {
-		scoreboard.fail++;
-		failSound.play();
+		fail();
 	}
 	handleResult(0);
 }
@@ -217,11 +219,9 @@ function denyMenu() {
 
 function deny(value) {
 	if (post.human_rating == value) {
-		scoreboard.correct++;
-		correctSound.play();
+		correct();
 	} else {
-		scoreboard.fail++;
-		failSound.play();
+		fail();
 	}
 	handleResult(value);
 }
@@ -229,13 +229,27 @@ function deny(value) {
 function pass() {
 	scoreboard.pass++;
 	if (post.human_rating == post.ai_rating) {
-		scoreboard.correct++
-		correctSound.play();
+		correct();
 	} else {
-		scoreboard.fail++;
-		failSound.play();
+		fail();
 	}	
 	handleResult(-1);
+}
+
+function correct() {
+	scoreboard.correct++
+	correctSound.play();
+}
+
+function fail() {
+	scoreboard.fail++;
+	failSound.play();
+
+	document.querySelector('.indicator').addEventListener('animationend', function() {
+		document.querySelector('.indicator').classList.remove('blink');
+	});
+
+	select('.indicator').addClass('blink');
 }
 
 function handleResult(value) {
@@ -244,7 +258,6 @@ function handleResult(value) {
 	}
 	post.player_rating = value;
 	results.push(post);
-	console.log(results.length);
 	renderPost();
 }
 
@@ -267,13 +280,12 @@ function processScore() {
 
 function roundOver() {
 	music.stop();
+	createDiv('ROUND OVER').class('round-over-alert');
+	let i = scoreboard.round - 1;
+	scoreboard.results[i] = processScore();
+	storeItem('scoreboard', JSON.stringify(scoreboard));
 
 	roundOverSound.onended(function() {
-		alert('Round Over');
-		let i = scoreboard.round - 1;
-		scoreboard.results[i] = processScore();
-		console.log(scoreboard.results);
-		storeItem('scoreboard', JSON.stringify(scoreboard));
 		window.location.assign(window.location.origin + '/result.html');
 	});
 

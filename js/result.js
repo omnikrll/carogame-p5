@@ -2,7 +2,9 @@ let scoreboard,
 	reset,
 	round_text = 'rounds',
 	messages,
-	messageSet;
+	messageSet,
+	messageSound,
+	restartSound;
 
 let intro_text = [
 	'Great job! You are a great moderator. Maybe even one of our best. But, play again and keep improving your score!',
@@ -17,11 +19,14 @@ let outro_text = [
 
 function preload() {
 	messages = loadJSON('/js/messages.new.json');
+	soundFormats('mp3', 'ogg');
+	messageSound = loadSound('/assets/audio/gameplay-05.ogg');
+	restartSound = loadSound('/assets/audio/gameplay-01.ogg');
 }
 
 function setup() {
+	noCanvas();
 	scoreboard = JSON.parse(getItem('scoreboard'));
-	reset = scoreboard.round >= 3;
 
 	if (scoreboard.round == 1) round_text = 'round';
 
@@ -31,6 +36,7 @@ function setup() {
 	if (result.score <= 60) {
 		select('#intro_text').html(intro_text[2]);
 		select('#outro_text').remove();
+		select('#nextRound').html('Try Again');
 	} else if (result.score > 60 && result.score <= 80) {
 		select('#intro_text').html(intro_text[1]);
 		select('#outro_text').html(outro_text[1]);
@@ -38,6 +44,8 @@ function setup() {
 		select('#intro_text').html(intro_text[0]);
 		select('#outro_text').html(outro_text[0]);
 	}
+
+	reset = scoreboard.round >= 3 || result.score <= 60;
 
 	loadMessages();
 
@@ -63,7 +71,7 @@ function loadMessages() {
 }
 
 function draw() {
-	if (frameCount % 180 == 0) {
+	if (frameCount % 420 == 0) {
 		displayMessage();
 	}
 }
@@ -72,7 +80,12 @@ function displayMessage() {
 	let i = Math.floor(Math.random() * messageSet.length),
 		message = messageSet[i];
 
-	console.log(message);
+	let messageDiv = createDiv(message).addClass('message');
+	document.querySelector('.message').addEventListener('animationend', function() {
+		messageDiv.remove();
+	});
+
+	messageSound.play();
 }
 
 function nextRound() {
@@ -82,7 +95,7 @@ function nextRound() {
 
 	if (reset) {
 		scoreboard.round = 1;
-		scoreboard.timer = 30;
+		scoreboard.timer = 25;
 		scoreboard.results = [];
 	} else {
 		scoreboard.round++;
@@ -90,5 +103,10 @@ function nextRound() {
 	}
 
 	storeItem('scoreboard', JSON.stringify(scoreboard));
-	window.location.assign(window.location.origin + '/index.html');
+
+	restartSound.onended(function() {
+		window.location.assign(window.location.origin + '/index.html');		
+	});
+
+	restartSound.play();
 }

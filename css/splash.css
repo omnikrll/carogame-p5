@@ -1,3 +1,5 @@
+@import "messages.css";
+
 body {
 	overflow: hidden;
 	background:  url('/assets/img/paper/windows_vista_background.jpg');
@@ -17,46 +19,6 @@ body {
 	left: 0;
 }
 
-#message {
-	position: absolute;
-	display: none;
-	top: 5em;
-	left:  1em;
-	width: 240px;
-	/*height: 60px;*/
-	background: linear-gradient(359deg, rgba(20,131,9,1) 0%, rgba(36,198,20,1) 66%, rgba(175,254,167,1) 100%);
-	border: 2px outset black;
-	border-radius: 4px;
-	font-family: 'Gotham';
-	font-weight: 200;
-	font-size: 0.75em;
-	padding: 0.25em;
-}
-
-#message.active {
-	display: block;
-	animation-duration: 2000ms;
-	animation-name: slideOut;
-	animation-iteration-count: infinite;
-	animation-delay: 3000ms;
-}
-
-@keyframes slideOut {
-	from {
-		left: 1em;
-	}
-
-	to {
-		left: -100%;
-	}
-}
-
-#message h2 {
-	font-size: inherit;
-	margin: 0;
-	font-weight: bold;
-}
-
 #dialog {
 	position: relative;
 	width: 640px;
@@ -64,8 +26,6 @@ body {
 	background: url('/assets/img/paper/conmods_baackground_dashboard_JUSTBACKGROUND.png');
 	background-size: cover;
 	background-repeat: no-repeat;
-/*	border: 3px outset black;
-	border-radius: 5px;*/
 	top:  50%;
 	left:  50%;
 	transform:  translate(-50%, -50%);

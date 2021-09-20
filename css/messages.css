@@ -1,0 +1,34 @@
+.message {
+	position: absolute;
+	top: 5em;
+	left:  1em;
+	width: 250px;
+	height: 4em;
+	background-image: url('/assets/img/paper/boss_messaging1-small.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	font-family: 'Gotham';
+	font-weight: 100;
+	font-size: 0.75em;
+	padding: 1em;
+	animation-duration: 2000ms;
+	animation-name: slideOut;
+	animation-iteration-count: 1;
+	animation-delay: 3000ms;
+}
+
+.message:before {
+	content: 'BOSS:\A';
+	white-space: pre;
+	font-weight: bold;	
+}
+
+@keyframes slideOut {
+	from {
+		left: 1em;
+	}
+
+	to {
+		left: -100%;
+	}
+}

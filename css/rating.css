@@ -1,3 +1,5 @@
+@import "messages.css";
+
 body {
 	overflow: hidden;
 	background:  url('/assets/img/paper/windows_vista_background.jpg');
@@ -66,6 +68,24 @@ br {
 	width: 36px;
 	background: url('/assets/img/paper/indicator-black.png');
 	background-size: contain;
+}
+
+.mainWindow h1 .indicator.blink {
+	animation-name: 'blinker';
+	animation-duration: 600ms;
+	animation-iteration-count: 3;
+}
+
+@keyframes blinker {
+	from {
+		background: url('/assets/img/paper/indicator-red.png');
+		background-size: contain;
+	}
+
+	to {
+		background: url('/assets/img/paper/indicator-black.png');
+		background-size: contain;
+	}
 }
 
 .mainWindow .postDiv {
@@ -217,4 +237,19 @@ br {
 	background: url('/assets/img/paper/side_layoutbox.png');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
+}
+
+.round-over-alert {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	background: url('/assets/img/paper/side_layoutbox.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 240px;
+	height: 180px;
+	text-align: center;
+	line-height: 180px;
+	font-size: 1.5em;
+	transform: translate(-50%,-50%);
 }
