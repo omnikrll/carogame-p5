@@ -23,12 +23,6 @@ br {
 	left: 0;
 }
 
-#sketch canvas {
-	position:  fixed;
-	z-index: 100;
-	pointer-events:  none;
-}
-
 .mainWindow {
 	position: relative;
 	width: 900px;
@@ -86,6 +80,14 @@ br {
 		background: url('/assets/img/paper/indicator-black.png');
 		background-size: contain;
 	}
+}
+
+.ai_counter {
+	background: url('/assets/img/paper/side_layoutbox.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	padding: 3em 1em;
+	margin: 7em 0 0 2em;
 }
 
 .mainWindow .postDiv {

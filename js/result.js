@@ -95,11 +95,11 @@ function nextRound() {
 
 	if (reset) {
 		scoreboard.round = 1;
-		scoreboard.timer = 25;
+		scoreboard.timer = 10;
 		scoreboard.results = [];
 	} else {
 		scoreboard.round++;
-		scoreboard.timer -= 5;
+		// scoreboard.timer -= 5;
 	}
 
 	storeItem('scoreboard', JSON.stringify(scoreboard));

@@ -1,4 +1,6 @@
-let timer = 25;
+let timer = 10,
+	amount = 20;
+
 let	scoreboard,
 	messages,
 	messageSet,
@@ -27,6 +29,8 @@ function setup() {
 			"pass": 0,
 			"running_score": 0,
 			"timer": timer,
+			"ai_rate": 0.02,
+			"amount": amount,
 			"results": []
 		};
 
@@ -37,6 +41,7 @@ function setup() {
 
 	timer = scoreboard.timer;
 	select('#timer').html(timer);
+	select('#amount').html(amount);
 	select('#start').mousePressed(startGame);
 
 	music.loop();

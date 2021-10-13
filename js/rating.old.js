@@ -4,7 +4,7 @@ let mainWindow = false,
 	postDiv = false,
 	displayPost = false,
 	button1 = false,
-	// button2 = false,
+	button2 = false,
 	button3 = false,
 	menu = false,
 	timer = null,
@@ -70,10 +70,6 @@ function setup() {
 	loadMessages();
 
 	music.loop();
-
-	sleep(200).then(function() {
-		select('#ai_rate').html('Completed in ' + scoreboard.ai_rate + ' secs');
-	});
 }
 
 function draw() {
@@ -116,7 +112,7 @@ function draw() {
 		timerDisplay.style('color', 'red');
 	}
 
-	if (timer == 0 || results.length == scoreboard.amount) {
+	if (timer == 0) {
 		noLoop();
 		roundOver();
 	}
@@ -161,10 +157,10 @@ function renderPlayfield() {
 		button1.mousePressed(approve);
 	}
 
-	// if (!button2) {
-	// 	button2 = select('.rateButton.pass');
-	// 	button2.mousePressed(pass);
-	// }
+	if (!button2) {
+		button2 = select('.rateButton.pass');
+		button2.mousePressed(pass);
+	}
 
 	if (!button3) {
 		button3 = select('.rateButton.deny');
@@ -294,10 +290,4 @@ function roundOver() {
 	});
 
 	roundOverSound.play();
-}
-
-function sleep(millisecondsDuration) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, millisecondsDuration);
-  });
 }
