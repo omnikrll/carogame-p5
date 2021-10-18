@@ -160,11 +160,6 @@ function renderPlayfield() {
 		button1.mousePressed(approve);
 	}
 
-	// if (!button2) {
-	// 	button2 = select('.rateButton.pass');
-	// 	button2.mousePressed(pass);
-	// }
-
 	if (!button3) {
 		button3 = select('.rateButton.deny');
 		button3.mousePressed(denyMenu);
@@ -229,18 +224,8 @@ function deny(value) {
 	handleResult(value);
 }
 
-function pass() {
-	scoreboard.pass++;
-	if (post.human_rating == post.ai_rating) {
-		correct();
-	} else {
-		fail();
-	}	
-	handleResult(-1);
-}
-
 function correct() {
-	scoreboard.correct++
+	scoreboard.correct++;
 	correctSound.play();
 }
 
@@ -259,6 +244,13 @@ function handleResult(value) {
 	if (!!menu) {
 		menu.remove();
 	}
+
+	if (post.ai_rating == post.human_rating) {
+		scoreboard.ai_correct++;
+	} else {
+		scoreboard.ai_fail++;
+	}
+
 	post.player_rating = value;
 	results.push(post);
 	renderPost();
@@ -267,13 +259,13 @@ function handleResult(value) {
 function processScore() {
 	let time_modifier = results.length / time_elapsed,
 		base_score = +scoreboard.correct / +scoreboard.fail,
-		ai_modifier = +scoreboard.pass / +results.length,
-		modified_score = base_score - ai_modifier,
-		score = modified_score * time_elapsed,
+		score = base_score * time_modifier,
 		round = {
 			"posts": results,
 			"time_elapsed": time_elapsed,
-			"score": score
+			"score": score,
+			"ai_score": +scoreboard.ai_correct / scoreboard.amount,
+			"player_score": +scoreboard.correct / scoreboard.amount
 		};
 
 	scoreboard.running_score = score;

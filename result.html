@@ -17,12 +17,23 @@
 				<div class="logo"></div>
 			</h1>
 			<div class="textArea">
-				<p id="intro_text"></p>
-				<p>You played <span class="display" id="round"></span>.</p>
-				<p>You rated <span class="display" id="count"></span> tweets in <span class="display" id="timer"></span> seconds.</p>
-				<p>Overall, you got <span class="display" id="correct"></span> correct, <span class="display" id="fail"></span> incorrect, and you used the AI <span class="display" id="pass"></span> times.</p>
-				<p id="outro_text"></p>
-				<button id="nextRound">Get Back To Work</button>
+				<div class="new_winscreen">
+					<div class="ai_results">
+						<h2>The AI</h2>
+						<p>Time: <span id="ai_rate"></span> seconds.</p>
+						<p>Rating: <span id="ai_score"></span>% correct.</p>
+					</div>
+					<div class="player_results">
+						<h2>You</h2>
+						<p>Time: <span id="time_elapsed"></span> seconds.</p>
+						<p>Rating: <span id="player_score"></span>% correct.</p>
+					</div>
+				</div>
+				<div class="winners">
+					<p>Winner for Accuracy: <span id="winner"></span>!</p>
+					<p>Winner for Speed: The AI!</p>
+				</div>
+				<button id="nextRound">Play Again? See if you can beat the AI!</button>
 			</div>
 		</div>
 	</div>
