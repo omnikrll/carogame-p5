@@ -1,5 +1,6 @@
 let mainWindow = false,
 	data = false,
+	dataSet = false,
 	post = false,
 	postDiv = false,
 	displayPost = false,
@@ -49,6 +50,23 @@ function preload() {
 	music = loadSound('/assets/audio/gameloop.ogg');
 }
 
+function assembleDataSet() {
+	dataSet = [];
+
+	for (i = 0; i < scoreboard.amount; i++) {
+		let i = Math.floor(Math.random() * data.content.length),
+			post = data.content.splice(i, 1)[0];
+
+		if (post.ai_rating == post.human_rating) {
+			scoreboard.ai_correct++;
+		} else {
+			scoreboard.ai_fail++;
+		}
+
+		dataSet.push(post);
+	}
+}
+
 function setup() {
 	noCanvas();
 	renderPlayfield();
@@ -56,6 +74,8 @@ function setup() {
 	if (getItem('scoreboard') != null) {
 		scoreboard = JSON.parse(getItem('scoreboard'));
 	}
+
+	assembleDataSet();
 
 	timer = scoreboard.timer;
 	newTickets *= scoreboard.round;
@@ -167,8 +187,8 @@ function renderPlayfield() {
 }
 
 function getRandomPost() {
-	let i = Math.floor(Math.random() * data.content.length);
-	return data.content.splice(i, 1)[0];
+	let i = Math.floor(Math.random() * dataSet.length);
+	return dataSet.splice(i, 1)[0];
 }
 
 function getRandomAvatarClass() {
@@ -181,7 +201,7 @@ let previousClass;
 function renderPost() {
 	noLoop();
 	post = getRandomPost();
-	if (data.content.length == 0) {
+	if (dataSet.length == 0) {
 		roundOver();
 	}
 	select('.post').html(post.text);
@@ -244,14 +264,6 @@ function handleResult(value) {
 	if (!!menu) {
 		menu.remove();
 	}
-
-	if (post.ai_rating == post.human_rating) {
-		scoreboard.ai_correct++;
-	} else {
-		scoreboard.ai_fail++;
-	}
-
-	console.log(scoreboard);
 
 	post.player_rating = value;
 	results.push(post);
