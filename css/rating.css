@@ -241,6 +241,22 @@ br {
 	background-repeat: no-repeat;
 }
 
+.hidden {
+	display: none;
+}
+
+.overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.6);
+	z-index: 1000;
+}
+
 .round-over-alert {
 	position: fixed;
 	top: 50%;
@@ -254,4 +270,5 @@ br {
 	line-height: 180px;
 	font-size: 1.5em;
 	transform: translate(-50%,-50%);
+	pointer-events: none;
 }

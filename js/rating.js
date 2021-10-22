@@ -53,7 +53,7 @@ function preload() {
 function assembleDataSet() {
 	dataSet = [];
 
-	for (i = 0; i < scoreboard.amount; i++) {
+	for (i = 0; i <= scoreboard.amount; i++) {
 		let i = Math.floor(Math.random() * data.content.length),
 			post = data.content.splice(i, 1)[0];
 
@@ -278,7 +278,7 @@ function processScore() {
 			"posts": results,
 			"time_elapsed": time_elapsed,
 			"score": score,
-			"ai_score": +scoreboard.ai_correct / results.length,
+			"ai_score": +scoreboard.ai_correct / scoreboard.amount,
 			"player_score": +scoreboard.correct / results.length
 		};
 
@@ -291,7 +291,7 @@ function processScore() {
 
 function roundOver() {
 	music.stop();
-	createDiv('ROUND OVER').class('round-over-alert');
+	select('.overlay').removeClass('hidden');
 	let i = scoreboard.round - 1;
 	scoreboard.results[i] = processScore();
 	storeItem('scoreboard', JSON.stringify(scoreboard));
