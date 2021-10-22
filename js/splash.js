@@ -1,5 +1,5 @@
-let timer = 10,
-	amount = 20;
+let timer = 30,
+	amount = 60;
 
 let	scoreboard,
 	messages,
@@ -30,7 +30,7 @@ function setup() {
 			"ai_fail": 0,
 			"running_score": 0,
 			"timer": timer,
-			"ai_rate": 0.02,
+			"ai_rate": 0.04,
 			"amount": amount,
 			"results": []
 		};

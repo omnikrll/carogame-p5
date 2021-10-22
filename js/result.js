@@ -1,5 +1,4 @@
 let scoreboard,
-	reset,
 	messages,
 	messageSet,
 	messageSound,
@@ -21,14 +20,12 @@ function setup() {
 
 	let winner = result.player_score > result.ai_score ? "You" : "The AI";
 
-	reset = scoreboard.round >= 3 || result.score <= 60;
-
 	loadMessages();
 
 	select('#ai_rate').html(scoreboard.ai_rate);
-	select('#ai_score').html(result.ai_score *= 100);
+	select('#ai_score').html((result.ai_score *= 100).toFixed(1));
 	select('#time_elapsed').html(result.time_elapsed);
-	select('#player_score').html(result.player_score *= 100);
+	select('#player_score').html((result.player_score *= 100).toFixed(1));
 	select('#winner').html(winner);
 	select('#nextRound').mousePressed(nextRound);
 }
@@ -66,15 +63,11 @@ function displayMessage() {
 function nextRound() {
 	scoreboard.correct = 0;
 	scoreboard.fail = 0;
-	scoreboard.pass = 0;
-
-	if (reset) {
-		scoreboard.round = 1;
-		scoreboard.timer = 10;
-		scoreboard.results = [];
-	} else {
-		scoreboard.round++;
-	}
+	scoreboard.ai_correct = 0;
+	scoreboard.ai_fail = 0;
+	scoreboard.round = 1;
+	scoreboard.timer = 30;
+	scoreboard.results = [];
 
 	storeItem('scoreboard', JSON.stringify(scoreboard));
 

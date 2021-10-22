@@ -251,6 +251,8 @@ function handleResult(value) {
 		scoreboard.ai_fail++;
 	}
 
+	console.log(scoreboard);
+
 	post.player_rating = value;
 	results.push(post);
 	renderPost();
@@ -264,11 +266,13 @@ function processScore() {
 			"posts": results,
 			"time_elapsed": time_elapsed,
 			"score": score,
-			"ai_score": +scoreboard.ai_correct / scoreboard.amount,
-			"player_score": +scoreboard.correct / scoreboard.amount
+			"ai_score": +scoreboard.ai_correct / results.length,
+			"player_score": +scoreboard.correct / results.length
 		};
 
 	scoreboard.running_score = score;
+
+	console.log(round);
 
 	return round;
 }
