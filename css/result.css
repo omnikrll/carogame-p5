@@ -87,3 +87,17 @@ br {
 	padding-left: 1em;
 	border-left: 1px solid black;
 }
+
+@media (min-width: 1441px) {
+  body {
+    font-size: 1.25em;
+  }
+  
+  .mainWindow {
+    height: 630px;
+  }
+  
+  .mainWindow .textArea {
+    height: 400px;
+  }
+}

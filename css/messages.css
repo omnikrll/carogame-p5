@@ -2,14 +2,14 @@
 	position: absolute;
 	top: 5em;
 	left:  1em;
-	width: 375px;
-	height: 6em;
+	width: 200px;
+	height: 4em;
 	background-image: url('/assets/img/paper/boss_messaging1-small.png');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	font-family: 'Gotham';
 	font-weight: 100;
-	font-size: 1.5em;
+	font-size: 1.25em;
 	padding: 1em;
 	animation-duration: 2000ms;
 	animation-name: slideOut;
@@ -31,4 +31,12 @@
 	to {
 		left: -100%;
 	}
+}
+
+@media (min-width: 1441px) {
+  .message {    
+    width: 375px;
+    height: 6em;  
+  	font-size: 1.5em;
+  }
 }

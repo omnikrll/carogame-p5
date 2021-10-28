@@ -57,3 +57,14 @@ body {
 	background: url('/assets/img/paper/indicator-black.png');
 	background-size: contain;
 }
+
+@media (min-width: 1441px)  {
+  body {
+    font-size: 1.25em;
+  }
+  
+  #dialog {
+    width: 720px;
+    height: 540px;
+  }
+}

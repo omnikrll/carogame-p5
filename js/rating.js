@@ -124,7 +124,7 @@ function draw() {
 
 	if (results.length  > 1) {
 		let rate = scoreboard.timer / results.length;
-		select('#rate').html(rate.toFixed(2));
+		select('#rate').html(rate.toFixed(1));
 	} else {
 		select('#rate').html(scoreboard.timer);
 	}

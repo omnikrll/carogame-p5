@@ -105,6 +105,7 @@ br {
 	transform: translateX(-50%);
 	height: 190px;
 	display: flex;
+  word-break: break-word;
 }
 
 .mainWindow .controls {
@@ -271,4 +272,39 @@ br {
 	font-size: 1.5em;
 	transform: translate(-50%,-50%);
 	pointer-events: none;
+}
+
+@media (min-width: 1441px) {
+  body {
+    font-size: 1.25em;
+  }
+  
+  .mainWindow {
+    width: 1012.5px;
+    height: 630px;
+  }
+  
+  .mainWindow .controls {
+    top: 80px;
+  }
+  
+  .mainWindow .rateButton {
+    width: 112px;
+  }
+  
+  .mainWindow .mainDisplay .postDisplay .content {
+    left: 56px;
+  }
+  
+  .mainWindow .postDiv {
+    font-size: 14px;
+    top: 40px;
+    height: 220px;
+  }
+  
+  .mainWindow .menu {
+    height: 150px;
+    top: 78px;
+    right: 10px;
+  }
 }
